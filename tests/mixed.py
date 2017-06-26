@@ -8,7 +8,10 @@ class TestMixedNumbers(unittest.TestCase):
     def test_zero(self):
         self.assertEqual(Mixed(0), Mixed(0.0))
         self.assertEqual(Mixed(0), Mixed(''))
-        self.assertEqual(Mixed(0), Mixed(False))
+        self.assertEqual(Mixed(0), 0)
+        self.assertEqual(Mixed(0), False)
+        self.assertEqual(Mixed(0), '0')
+        self.assertEqual(Mixed(0), 0x0)
         self.assertFalse(Mixed(0))
         print('OK zero check')
 
