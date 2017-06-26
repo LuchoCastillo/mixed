@@ -19,16 +19,16 @@ class Mixed(object):
     """
 
     def __init__(self, float_, limit_denominator=1000000, use_dash=True):
-        self._float = float_
+        self._float = 0 if (float_ == '') else float(float_)
         self._use_dash = use_dash
-        self._mix = self._implicit_form(float_, limit_denominator, use_dash)
+        self._mix = self._implicit_form(limit_denominator, use_dash)
 
-    def _implicit_form(self, float_, limit_denominator, use_dash):
-        if not float_:
+    def _implicit_form(self, limit_denominator, use_dash):
+        if not self._float:
             return '-' if use_dash else '0'
 
-        self._int = int(float_)
-        self._fract = Fraction(float_ - self._int)
+        self._int = int(self._float)
+        self._fract = Fraction(self._float - self._int)
 
         if limit_denominator:
             self._fract = self._fract.limit_denominator(limit_denominator)
