@@ -13,7 +13,7 @@ class TestMixedNumbers(unittest.TestCase):
         self.assertEqual(Mixed(0), '0')
         self.assertEqual(Mixed(0), 0x0)
         self.assertFalse(Mixed(0))
-        print('OK zero check')
+        print('OK zero test')
 
     def test_positive(self):
         self.assertEqual(Mixed(.54), .54)
@@ -22,7 +22,7 @@ class TestMixedNumbers(unittest.TestCase):
         self.assertTrue(Mixed(.0001))
         self.assertTrue(Mixed(.2))
         self.assertTrue(Mixed(1234.5))
-        print('OK positive numbers check')
+        print('OK positive numbers test')
 
     def test_negative(self):
         # TODO: test negative mixed numbers work properly
