@@ -21,10 +21,11 @@ class Mixed(object):
     def __init__(self, float_, limit_denominator=1000000, use_dash=True):
         self._float = 0 if (float_ == '') else float(float_)
         self._use_dash = use_dash
-        self._mix = self._implicit_form(limit_denominator, use_dash)
+        self._mix = self._implicit_mixed(limit_denominator, use_dash)
 
-    def _implicit_form(self, limit_denominator, use_dash):
+    def _implicit_mixed(self, limit_denominator, use_dash):
         if not self._float:
+            # Returns an empty Mixed
             return '-' if use_dash else '0'
 
         self._int = int(self._float)
@@ -34,11 +35,13 @@ class Mixed(object):
             self._fract = self._fract.limit_denominator(limit_denominator)
 
         if self._int and self._fract:
-            return '{} {}'.format(self._int, self._fract)
+            mix = '{} {}'.format(self._int, self._fract)
         else:
-            return '{}'.format(
+            mix = '{}'.format(
                 *(filter(None, [self._int, self._fract]))
             )
+
+        return mix
 
     def implicit_form(self, use_dash=True):
         """
@@ -89,11 +92,17 @@ class Mixed(object):
         # find a way to multiply for better performance
         return Mixed(self._float * float(another))
 
+    def __truediv__(self, another):
+        return Mixed(self._float / float(another))
+
     def __sub__(self, another):
         return Mixed(self._float - float(another))
 
     def __rsub__(self, another):
         return Mixed(float(another) - self._float)
+
+    def __neg__(self):
+        return 0 - self
 
     def __float__(self):
         return float(self._float)
